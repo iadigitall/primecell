@@ -14,1008 +14,30 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    /* =============================================
-       RESET & BASE
-    ============================================= */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black: #0a0a0a;
-      --orange: #FF6B00;
-      --orange-dark: #e05e00;
-      --white: #FFFFFF;
-      --gray-light: #f5f5f5;
-      --gray-mid: #888;
-      --gray-dark: #222;
-      --whatsapp: #25D366;
-      --radius: 12px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.12);
-      --shadow-lg: 0 8px 40px rgba(0,0,0,0.18);
-      --transition: 0.3s ease;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    img { display: block; max-width: 100%; }
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-
-    /* =============================================
-       UTILITIES
-    ============================================= */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px 32px;
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all var(--transition);
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--orange);
-      color: var(--white);
-      border-color: var(--orange);
-    }
-    .btn-primary:hover {
-      background: var(--orange-dark);
-      border-color: var(--orange-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(255,107,0,0.4);
-    }
-
-    .btn-outline-white {
-      background: transparent;
-      color: var(--white);
-      border-color: var(--white);
-    }
-    .btn-outline-white:hover {
-      background: var(--white);
-      color: var(--black);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline-orange {
-      background: transparent;
-      color: var(--orange);
-      border-color: var(--orange);
-    }
-    .btn-outline-orange:hover {
-      background: var(--orange);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    .btn-white {
-      background: var(--white);
-      color: var(--black);
-      border-color: var(--white);
-    }
-    .btn-white:hover {
-      background: transparent;
-      color: var(--white);
-      border-color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    .section-title {
-      font-size: clamp(1.6rem, 4vw, 2.5rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-
-    .section-subtitle {
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
-      color: var(--gray-mid);
-      max-width: 600px;
-      line-height: 1.75;
-    }
-
-    /* Label decorativo antes do título */
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 14px;
-    }
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 2px;
-      background: var(--orange);
-      border-radius: 2px;
-    }
-
-    /* Reveal animation */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-    .reveal-delay-5 { transition-delay: 0.5s; }
-
-    /* =============================================
-       HEADER
-    ============================================= */
-    #header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 20px 0;
-      background: transparent;
-      transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
-    }
-
-    #header.scrolled {
-      background: var(--black);
-      padding: 14px 0;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      flex-shrink: 0;
-    }
-    .logo span.prime { color: var(--orange); }
-    .logo span.cell { color: var(--white); }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    nav a {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      transition: color var(--transition);
-      position: relative;
-    }
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--orange);
-      transition: width var(--transition);
-    }
-    nav a:hover { color: var(--white); }
-    nav a:hover::after { width: 100%; }
-
-    .header-cta { flex-shrink: 0; }
-
-    /* Mobile menu */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--white);
-      border-radius: 2px;
-      transition: all var(--transition);
-    }
-    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background: var(--black);
-      padding: 20px;
-      border-top: 1px solid #222;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--white);
-      padding: 8px 0;
-      border-bottom: 1px solid #1a1a1a;
-    }
-
-    @media (max-width: 900px) {
-      nav, .header-cta { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* =============================================
-       HERO
-    ============================================= */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=1600&q=85&fit=crop');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(200,80,0,0.55) 100%);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 140px 0 80px;
-      max-width: 720px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,107,0,0.15);
-      border: 1px solid rgba(255,107,0,0.4);
-      border-radius: 50px;
-      padding: 6px 16px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--orange);
-      margin-bottom: 24px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: 900;
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      margin-bottom: 20px;
-    }
-    .hero-title .highlight { color: var(--orange); }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 36px;
-      max-width: 560px;
-      line-height: 1.7;
-    }
-
-    .hero-ctas {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 48px;
-    }
-
-    .hero-badges {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .hero-stat {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 50px;
-      padding: 8px 16px;
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-
-    /* =============================================
-       PRODUCTS
-    ============================================= */
-    #produtos {
-      padding: 100px 0;
-      background: #0f0f0f;
-    }
-
-    .section-header {
-      margin-bottom: 56px;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin-bottom: 48px;
-    }
-
-    .product-card {
-      position: relative;
-      border-radius: var(--radius);
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      cursor: pointer;
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .product-card:hover img { transform: scale(1.08); }
-
-    .product-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 60%);
-      display: flex;
-      align-items: flex-end;
-      padding: 20px;
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .product-card:hover .product-card-overlay { opacity: 1; }
-
-    .product-card-label {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .product-card-label::before {
-      content: '';
-      display: block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--orange);
-    }
-
-    .products-cta { text-align: center; }
-
-    /* =============================================
-       DIFERENCIAIS
-    ============================================= */
-    #diferenciais {
-      padding: 100px 0;
-      background: var(--black);
-      position: relative;
-    }
-    /* Glow laranja sutil no fundo */
-    #diferenciais::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 80%; height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,107,0,0.35), transparent);
-    }
-    #diferenciais::after {
-      content: '';
-      position: absolute;
-      top: -1px; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255,107,0,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .diferenciais-header {
-      margin-bottom: 56px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card {
-      background: #111;
-      border: 1px solid #1e1e1e;
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    /* Linha laranja vertical que cresce no hover */
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 0;
-      background: var(--orange);
-      border-radius: 0 0 3px 3px;
-      transition: height 0.4s ease;
-    }
-    .card:hover::before { height: 100%; }
-
-    .card:hover {
-      border-color: #2a2a2a;
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(255,107,0,0.1);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 22px;
-      transition: background var(--transition);
-    }
-    .card:hover .card-icon { background: rgba(255,107,0,0.18); }
-    .card-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: var(--orange);
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .card-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 10px;
-      color: var(--white);
-    }
-
-    .card-text {
-      font-size: 0.88rem;
-      color: var(--gray-mid);
-      line-height: 1.75;
-    }
-
-    /* =============================================
-       SOBRE
-    ============================================= */
-    #sobre {
-      padding: 100px 0;
-      background: #0f0f0f;
-    }
-
-    .sobre-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .sobre-text .section-subtitle {
-      max-width: 100%;
-      margin-bottom: 32px;
-      color: rgba(255,255,255,0.75);
-      font-size: 1.05rem;
-    }
-
-    .sobre-stats {
-      display: flex;
-      gap: 32px;
-      margin-bottom: 36px;
-      flex-wrap: wrap;
-    }
-
-    .sobre-stat {
-      text-align: center;
-    }
-
-    .sobre-stat-number {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--orange);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .sobre-stat-label {
-      font-size: 0.8rem;
-      color: var(--gray-mid);
-      font-weight: 600;
-    }
-
-    .sobre-images {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .sobre-images img {
-      width: 100%;
-      border-radius: var(--radius);
-      object-fit: cover;
-      height: 220px;
-    }
-
-    /* =============================================
-       DEPOIMENTOS
-    ============================================= */
-    #depoimentos {
-      position: relative;
-      padding: 100px 0;
-      overflow: hidden;
-    }
-
-    .depoimentos-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=85&fit=crop');
-      background-size: cover;
-      background-position: center;
-    }
-
-    .depoimentos-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(10,10,10,0.9);
-    }
-
-    .depoimentos-content { position: relative; z-index: 2; }
-
-    .depoimentos-header { margin-bottom: 56px; }
-
-    .depoimentos-header .section-subtitle {
-      color: rgba(255,255,255,0.65);
-      margin-top: 8px;
-    }
-
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    .review-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 24px;
-      color: var(--black);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .review-stars {
-      color: #F4C542;
-      font-size: 1rem;
-      margin-bottom: 12px;
-      letter-spacing: 1px;
-    }
-
-    .review-wa-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #25D366;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .review-text {
-      font-size: 0.9rem;
-      color: #333;
-      line-height: 1.7;
-      margin-bottom: 16px;
-      flex: 1;
-    }
-
-    .review-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: auto;
-    }
-
-    .review-author {
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--black);
-    }
-
-    .review-source {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .google-seal {
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 50px;
-      padding: 12px 24px;
-      width: fit-content;
-      margin: 0 auto;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.8);
-    }
-
-    /* =============================================
-       FAQ
-    ============================================= */
-    #faq {
-      padding: 100px 0;
-      background: var(--black);
-    }
-
-    .faq-header { margin-bottom: 56px; }
-
-    .faq-list {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .faq-item {
-      background: #141414;
-      border: 1px solid #1e1e1e;
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: border-color var(--transition);
-    }
-
-    .faq-item.open { border-color: var(--orange); }
-
-    .faq-question {
-      width: 100%;
-      background: none;
-      border: none;
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      text-align: left;
-      padding: 22px 28px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      transition: color var(--transition);
-    }
-
-    .faq-item.open .faq-question { color: var(--orange); }
-
-    .faq-icon {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 2px solid #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: 300;
-      transition: all var(--transition);
-      line-height: 1;
-    }
-
-    .faq-item.open .faq-icon {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: var(--white);
-      transform: rotate(45deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.4s ease;
-      padding: 0 28px;
-    }
-
-    .faq-answer-inner {
-      padding-bottom: 22px;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.7;
-    }
-
-    .faq-item.open .faq-answer { max-height: 200px; }
-
-    /* =============================================
-       CTA FINAL
-    ============================================= */
-    #cta-final {
-      padding: 100px 0;
-      background: var(--orange);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    /* Textura de luz no CTA */
-    #cta-final::before {
-      content: '';
-      position: absolute;
-      top: -60%; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    #cta-final .container { position: relative; z-index: 1; }
-
-    .cta-final-title {
-      font-size: clamp(1.8rem, 5vw, 3.2rem);
-      font-weight: 900;
-      color: var(--white);
-      margin-bottom: 16px;
-      line-height: 1.12;
-      letter-spacing: -0.035em;
-    }
-
-    .cta-final-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
-      color: rgba(255,255,255,0.88);
-      max-width: 560px;
-      margin: 0 auto 40px;
-      line-height: 1.7;
-    }
-
-    .cta-final-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* =============================================
-       FOOTER
-    ============================================= */
-    #footer {
-      padding: 56px 0 32px;
-      background: #050505;
-      border-top: 1px solid #1a1a1a;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-size: 1.6rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
-    .footer-logo span.prime { color: var(--orange); }
-    .footer-logo span.cell { color: var(--white); }
-
-    .footer-info {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .footer-info p {
-      font-size: 0.88rem;
-      color: var(--gray-mid);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .footer-links a {
-      font-size: 0.88rem;
-      color: var(--gray-mid);
-      transition: color var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .footer-links a:hover { color: var(--orange); }
-
-    .footer-copy {
-      font-size: 0.8rem;
-      color: #444;
-      padding-top: 16px;
-      border-top: 1px solid #1a1a1a;
-      width: 100%;
-      text-align: center;
-    }
-
-    /* Divisores sutis entre seções */
-    #produtos, #sobre, #depoimentos, #faq {
-      position: relative;
-    }
-    #produtos::before,
-    #sobre::before,
-    #depoimentos::before,
-    #faq::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 10%; right: 10%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
-    }
-
-    /* Profundidade extra nos review cards */
-    .review-card {
-      box-shadow: 0 2px 0 0 var(--orange);
-    }
-
-    /* Sobre — highlight nos números */
-    .sobre-stat-number {
-      font-size: 2.6rem;
-      letter-spacing: -0.05em;
-    }
-
-    /* FAQ — visual mais refinado */
-    .faq-question {
-      font-size: 0.98rem;
-      letter-spacing: -0.01em;
-    }
-
-    /* =============================================
-       WHATSAPP FLUTUANTE
-    ============================================= */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--whatsapp);
-      color: var(--white);
-      padding: 14px 22px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      box-shadow: 0 4px 24px rgba(37,211,102,0.4);
-      transition: all var(--transition);
-      animation: pulse 2.5s infinite;
-    }
-
-    .whatsapp-float:hover {
-      transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 8px 32px rgba(37,211,102,0.5);
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 4px 24px rgba(37,211,102,0.4); }
-      50% { box-shadow: 0 4px 40px rgba(37,211,102,0.7); }
-    }
-
-    .whatsapp-icon {
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
-    }
-
-    /* =============================================
-       RESPONSIVE
-    ============================================= */
-    @media (max-width: 1024px) {
-      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 900px) {
-      .cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .sobre-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .sobre-images { flex-direction: row; }
-      .sobre-images img { height: 160px; flex: 1; }
-    }
-
-    @media (max-width: 640px) {
-      .products-grid { grid-template-columns: 1fr; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .reviews-grid { grid-template-columns: 1fr; }
-      .hero-ctas { flex-direction: column; }
-      .hero-ctas .btn { width: 100%; }
-      .sobre-images { flex-direction: column; }
-      .sobre-images img { height: 200px; }
-      .cta-final-btns { flex-direction: column; }
-      .cta-final-btns .btn { width: 100%; }
-      .whatsapp-float span { display: none; }
-      .whatsapp-float { padding: 16px; border-radius: 50%; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preload" href="https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=1600&q=85&fit=crop" as="image" />
+  <link rel="icon" href="https://www.google.com/s2/favicons?domain=apple.com" type="image/x-icon" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobilePhoneStore",
+    "name": "Prime Cell DF",
+    "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&q=85&fit=crop",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Santa Maria",
+      "addressRegion": "DF",
+      "streetAddress": "CL 215, Conjunto C, Edifício Iza Matias Corporate"
+    },
+    "telephone": "+5561981576831",
+    "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "31"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -1025,7 +47,15 @@
   <header id="header">
     <div class="container">
       <div class="header-inner">
-        <div class="logo"><span class="prime">PRIME</span> <span class="cell">CELL</span></div>
+        <div class="logo">
+          <span class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5"/>
+            </svg>
+          </span>
+          <span class="prime">PRIME</span><span class="cell"> CELL</span>
+        </div>
 
         <nav>
           <a href="#produtos">Produtos</a>
@@ -1123,25 +153,25 @@
 
       <div class="products-grid">
         <div class="product-card reveal reveal-delay-1">
-          <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&q=85&fit=crop" alt="iPhone na mão" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&q=85&fit=crop" alt="Pessoa segurando um iPhone com a tela ligada mostrando a tela inicial" loading="lazy" />
           <div class="product-card-overlay">
             <div class="product-card-label">iPhone Novo</div>
           </div>
         </div>
         <div class="product-card reveal reveal-delay-2">
-          <img src="https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600&q=85&fit=crop" alt="iPhones variados" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600&q=85&fit=crop" alt="Diversos iPhones coloridos dispostos alinhados ressaltando as câmeras" loading="lazy" />
           <div class="product-card-overlay">
             <div class="product-card-label">iPhone Seminovo</div>
           </div>
         </div>
         <div class="product-card reveal reveal-delay-3">
-          <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=600&q=85&fit=crop" alt="iPhone novo na caixa" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=600&q=85&fit=crop" alt="Aparelho iPhone branco novo apoiado sobre a sua caixa original" loading="lazy" />
           <div class="product-card-overlay">
             <div class="product-card-label">Com Garantia</div>
           </div>
         </div>
         <div class="product-card reveal reveal-delay-4">
-          <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=85&fit=crop" alt="iPhone detalhe tela" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=85&fit=crop" alt="Detalhe em close da lateral metálica de um iPhone focando no acabamento premium" loading="lazy" />
           <div class="product-card-overlay">
             <div class="product-card-label">Entrega Rápida</div>
           </div>
@@ -1173,7 +203,7 @@
             <!-- shield -->
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <div class="card-title">1 ano de garantia em todo aparelho</div>
+          <div class="card-title">Aqui todo iPhone tem 1 ano de garantia</div>
           <p class="card-text">Novo ou seminovo, todo aparelho que sai daqui vem com 1 ano de garantia. A gente não vende e some.</p>
         </div>
         <div class="card reveal reveal-delay-2">
@@ -1181,7 +211,7 @@
             <!-- star -->
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <div class="card-title">Nota 5.0 no Google, sem exceção</div>
+          <div class="card-title">Aqui a nota é 5.0 no Google</div>
           <p class="card-text">31 avaliações reais de clientes de Santa Maria e do DF inteiro. Não é acaso, é o jeito que a gente trabalha todo dia.</p>
         </div>
         <div class="card reveal reveal-delay-3">
@@ -1189,7 +219,7 @@
             <!-- truck -->
             <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </div>
-          <div class="card-title">Entrega em todo o Distrito Federal</div>
+          <div class="card-title">Aqui a entrega chega até você</div>
           <p class="card-text">Não precisa sair de casa. A gente leva o seu iPhone em todo o DF e entorno. Rápido e sem enrolação.</p>
         </div>
         <div class="card reveal reveal-delay-1">
@@ -1197,7 +227,7 @@
             <!-- clock/history -->
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <div class="card-title">4 anos de história e reputação</div>
+          <div class="card-title">Aqui tem 4 anos de história</div>
           <p class="card-text">Não é perfil novo na internet. São 4 anos de loja física, cliente fidelizado e reputação construída na base da confiança.</p>
         </div>
         <div class="card reveal reveal-delay-2">
@@ -1205,7 +235,7 @@
             <!-- tag -->
             <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
           </div>
-          <div class="card-title">Preço justo, sem cobrar pelo nome</div>
+          <div class="card-title">Aqui o preço é justo de verdade</div>
           <p class="card-text">A gente não cobra pelo nome da loja. Cobra pelo produto. E o preço você vai querer mostrar pra todo mundo.</p>
         </div>
         <div class="card reveal reveal-delay-3">
@@ -1213,7 +243,7 @@
             <!-- map-pin -->
             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <div class="card-title">Loja física, pode vir pessoalmente</div>
+          <div class="card-title">Aqui você pode vir pessoalmente</div>
           <p class="card-text">Quer ver, tocar e testar antes de comprar? A gente te recebe bem. CL 215, Conjunto C, Santa Maria Norte.</p>
         </div>
       </div>
@@ -1255,8 +285,8 @@
         </div>
 
         <div class="sobre-images reveal reveal-delay-2">
-          <img src="https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=800&q=85&fit=crop" alt="Interior da loja" loading="lazy" />
-          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=85&fit=crop" alt="Atendimento ao cliente" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&q=85&fit=crop" alt="Diversos iPhones coloridos dispostos alinhados ressaltando as câmeras" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&q=85&fit=crop" alt="Pessoa segurando um iPhone com a tela ligada mostrando a tela inicial" loading="lazy" />
         </div>
       </div>
     </div>
@@ -1418,9 +448,9 @@
   ============================================================ -->
   <section id="cta-final">
     <div class="container">
-      <h2 class="cta-final-title reveal">Seu próximo iPhone está aqui<br/>em Santa Maria.</h2>
+      <h2 class="cta-final-title reveal">Seu próximo iPhone está aqui<br/></h2>
       <p class="cta-final-subtitle reveal reveal-delay-1">
-        A gente tá aqui no WhatsApp agora. Sem enrolação, sem taxa escondida, sem surpresa. É só chamar.
+       Nós estamos aqui no WhatsApp agora. Sem enrolação, sem taxa escondida, sem surpresa. É só chamar.
       </p>
       <div class="cta-final-btns reveal reveal-delay-2">
         <a href="https://wa.me/5561981576831" target="_blank" rel="noopener" class="btn btn-white" style="font-size:1.05rem;padding:18px 40px;">
@@ -1479,79 +509,8 @@
   <!-- ============================================================
        JAVASCRIPT
   ============================================================ -->
-  <script>
-    // ── Header scroll ──────────────────────────────────────────
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive: true });
-
-    // ── Mobile nav ────────────────────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobile-nav');
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileNav.classList.toggle('open');
-    });
-
-    function closeMobileNav() {
-      hamburger.classList.remove('active');
-      mobileNav.classList.remove('open');
-    }
-
-    // ── Intersection Observer (reveal animations) ─────────────
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(el => observer.observe(el));
-
-    // ── FAQ accordion ─────────────────────────────────────────
-    document.querySelectorAll('.faq-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isOpen = item.classList.contains('open');
-
-        // Close all
-        document.querySelectorAll('.faq-item').forEach(i => {
-          i.classList.remove('open');
-          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-        });
-
-        // Toggle clicked
-        if (!isOpen) {
-          item.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-
-    // ── Smooth active nav on scroll ───────────────────────────
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          navLinks.forEach(link => {
-            link.style.color = link.getAttribute('href') === `#${id}`
-              ? 'var(--orange)'
-              : '';
-          });
-        }
-      });
-    }, { threshold: 0.4 });
-
-    sections.forEach(s => sectionObserver.observe(s));
-  </script>
+  <script src="script.js" defer></script>
 
 </body>
 </html>
+
