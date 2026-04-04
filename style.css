@@ -312,7 +312,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=1600&q=85&fit=crop');
+      background-image: url('prime_img/IMG_20260403_221456_506.jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -838,10 +838,21 @@
     #cta-final {
       padding: 100px 0;
       background: var(--orange);
+      background-image: url('prime_img/IMG_20260403_221506_798.jpg');
+      background-size: cover;
+      background-position: center;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
+    #cta-final::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 107, 0, 0.50);
+      pointer-events: none;
+    }
+    #cta-final .container { position: relative; z-index: 2; }
     /* Textura de luz no CTA */
     #cta-final::before {
       content: '';
@@ -851,7 +862,6 @@
       background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
       pointer-events: none;
     }
-    #cta-final .container { position: relative; z-index: 1; }
 
     .cta-final-title {
       font-size: clamp(1.8rem, 5vw, 3.2rem);
@@ -968,6 +978,56 @@
     .faq-question {
       font-size: 0.98rem;
       letter-spacing: -0.01em;
+    }
+
+    /* =============================================
+       GALERIA DE CLIENTES
+    ============================================= */
+    #galeria {
+      padding: 100px 0 0;
+      background: #0f0f0f;
+    }
+
+    .galeria-header {
+      margin-bottom: 56px;
+    }
+
+    .galeria-strip {
+      overflow: hidden;
+      padding-bottom: 100px;
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+
+    .galeria-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      animation: scroll-gallery 35s linear infinite;
+    }
+
+    .galeria-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-gallery {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .galeria-img {
+      width: 260px;
+      height: 340px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      object-position: center top;
+      flex-shrink: 0;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .galeria-img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 32px rgba(255,107,0,0.2);
     }
 
     /* =============================================
